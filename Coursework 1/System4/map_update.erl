@@ -1,0 +1,14 @@
+%Diederik Vink (dav114) Aditya Rajagopal (ar4414)
+
+-module(map_update).
+-export([start/1]).
+
+% the same as  System 3 map_update.erl, for commenting please see that file
+start(Count) -> 
+    receive
+        {counter,update,Rec} -> 
+		  start(maps:put(Rec,maps:get(Rec,Count,0)+1,Count));
+        {counter,print,App} -> 
+            App ! {app,report, Count}
+    end.
+    
